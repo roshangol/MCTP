@@ -1,0 +1,25 @@
+digraph  {
+1;
+5;
+0;
+7;
+11;
+2;
+4;
+6;
+9;
+10;
+1 -> 2  [color=red];
+5 -> 0  [color=red];
+7 -> 0  [color=red];
+11 -> 0  [color=red];
+2 -> 4  [color=red];
+4 -> 5  [color=red];
+4 -> 6  [color=red];
+6 -> 7  [color=red];
+6 -> 9  [color=red];
+9 -> 9  [color=red];
+9 -> 10  [color=red];
+9 -> 11  [color=red];
+10 -> 9  [color=red];
+}
