@@ -1,7 +1,7 @@
 import networkx as nx
 import math
 from collections import defaultdict
-import path_finder as pf
+from .path_finder import prime_paths
 
 
 def check(l1, l2):
@@ -46,7 +46,7 @@ def path_request(test_path, primes):
 
 
 def prime_path(g, first, last):
-    primes = pf.prime_paths(g, first, last)
+    primes = prime_paths(g, first, last)
     return primes
 
 
@@ -86,7 +86,7 @@ def compute_TP(g, P, first, last):
     # the last node of not pi ∈ F
     for path in neww_p:
         if first == path[0]:
-            aa = []
+            aa = list()
             paths = nx.single_source_shortest_path(g, path[-1])
             destination_node = last
             if destination_node in paths:
@@ -113,7 +113,7 @@ def super_request(g, first, last):
     # compute the cost-effectiveness of g
     test_req = tr + S
     new = tr.copy()
-    covered = []
+    covered = list()
     while new != []:
         cost_efftectivness = {}
         tp_tr = path_request(test_req, new)
@@ -134,7 +134,7 @@ def super_request(g, first, last):
         for num, i in enumerate(list(cost_efftectivness.values())):
             if i < minn:
                 minn = i
-                min_list = []
+                min_list = list()
                 min_list.append(num)
             elif i == minn:
                 min_list.append(num)
@@ -162,8 +162,8 @@ def spliting_super(g, super_req, TP, first, last):
     TR = prime_path(g, first, last)
     edgg = list()
     edg = nx.edges(g)
-    ans = []
-    go_to_brute = []
+    ans = list()
+    go_to_brute = list()
     for i in edg:
         edgg.append(list(i))
     end_res = list()
@@ -196,7 +196,7 @@ def spliting_super(g, super_req, TP, first, last):
 def brute_force(TP, TR, first, last):
     # each test requirement tri ∈ T R that is not covered by T P
     not_covered = list()
-    res = []
+    res = list()
     for tr in TR:
         for tp in TP:
             if check(tp, tr) is False:
@@ -210,7 +210,7 @@ def brute_force(TP, TR, first, last):
             for tp in TP:
                 if new_path[0] != first and new_path[0] in tp:
                     new_path = tp[:tp.index(new_path[0])] + new_path[:]
-                    #print(new_path)
+                    # print(new_path)
                 elif new_path[-1] != last and new_path[-1] in tp:
                     new_path = new_path[:] + tp[tp.index(new_path[-1])+1:]
                     #print(new_path)
@@ -223,14 +223,14 @@ def brute_force(TP, TR, first, last):
 def minimizing(CTP, TR):
     tp_tr = path_request(CTP, TR)
     # print(tp_tr)
-    new = []
+    new = list()
     for i in tp_tr.values():
         for j in i:
             if j not in new:
                 new.append(j)
     # print(len(new))
 
-    dele = []
+    dele = list()
     for p1, r1 in tp_tr.items():
         for p2, r2 in tp_tr.items():
             if p1 != p2:
@@ -242,7 +242,7 @@ def minimizing(CTP, TR):
         del tp_tr[i]
 
     # print(tp_tr)
-    new = []
+    new = list()
     for i in tp_tr.values():
         for j in i:
             if j not in new:
@@ -278,7 +278,7 @@ def minimize(CTP, TR):
     for i in tp_tr.keys():
         result.append(eval(i))
 
-    new = []
+    new = list()
 
     for i in tp_tr.values():
         for j in i:

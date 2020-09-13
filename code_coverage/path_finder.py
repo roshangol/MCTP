@@ -1,4 +1,5 @@
 import networkx as nx
+from collections import deque
 
 
 def read_graph(g, firs, last):
@@ -59,7 +60,7 @@ def findSimplePath(graph, exPaths, paths=[]):
     """Find the simple paths of a graph."""
     paths.extend(filter(lambda p: isPrimePath(p, graph), exPaths))
     exPaths = filter(lambda p: extendable(p, graph), exPaths)
-    newExPaths = []
+    newExPaths = list()
     for p in exPaths:
         for nxx in graph['edges'][p[-1]]:
             if nxx not in p or nxx == p[0]:
@@ -70,9 +71,9 @@ def findSimplePath(graph, exPaths, paths=[]):
 
 def findPrimePaths(graph):
     """Find the prime paths of a graph."""
-    last_prime = []
+    last_prime = list()
     exPaths = [(n, ) for n in graph['nodes']]
-    simplePaths = []
+    simplePaths = list()
     # recursively finding the simple paths of the graph
     findSimplePath(graph, exPaths, simplePaths)
     primePaths = sorted(simplePaths, key=lambda a: (len(a), a), reverse=True)
@@ -84,15 +85,20 @@ def findPrimePaths(graph):
     return last_prime
 
 
-def simple_path(g):
+def simple_paths(g):
     sims = []
     for i in g.nodes():
-        sims.append(list(i))
         for j in g.nodes():
             sim = list(nx.all_simple_paths(g, i, j))
             for k in sim:
                 if k not in sims and k != []:
                     sims.append(k)
+    for i in list(nx.simple_cycles(g)):
+        item = deque(i)
+        for j in range(len(i)):
+            item.rotate(1)
+            x = list(item)
+            sims.append(x+list(x[0]))
     return sims
 
 

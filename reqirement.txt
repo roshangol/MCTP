@@ -9,6 +9,7 @@ networkx==2.5
 numpy==1.19.2
 Pillow==7.2.0
 pycodestyle==2.6.0
+pydot==1.4.1
 pyflakes==2.2.0
 pyparsing==2.4.7
 python-dateutil==2.8.1
