@@ -9,23 +9,16 @@ class cfg_coverage:
     def __init__(self, file_path_name, first_node, last_node):
 
         self.graph = nx.drawing.nx_pydot.read_dot(file_path_name)
-        self.alll = list()
-        self.node_coverages = list()
-        self.edge_coverages = list()
-        self.simple_pathes = list()
-        self.prime_pathes = list()
-        self.paths = list()
-        self.req = list()
         self.first = str(first_node)
         self.last = str(last_node)
 
     def graph_nodes(self):
         # This function return all nodes in your cfg
-        return self.graph.nodes()
+        return list(self.graph.nodes())
 
     def graph_edge(self):
         # This function return all edges in your cfg
-        return self.graph.edges()
+        return list(self.graph.edges())
 
     def edge_pair(self):
         edges = list()
@@ -49,15 +42,17 @@ class cfg_coverage:
         simples = simple_paths(self.graph)
         return simples
 
-    def prim_path(self):
+    def prime_path(self):
         primes = prime_paths(self.graph, self.first, self.last)
         return primes
 
     def prime_path_coverage_bruteforce(self):
-        prime_path_coverage_bruteforce(self.graph, self.first, self.last)
+        tp, tr = prime_path_coverage_bruteforce(self.graph, self.first, self.last)
+        return tp, tr
 
     def prime_path_coverage_setcoverage(self):
-        prime_path_coverage_superset(self.graph, self.first, self.last)
+        tp, tr = prime_path_coverage_superset(self.graph, self.first, self.last)
+        return tp, tr
 
     def draw_cfg(self):
         nx.draw(self.graph, with_labels=True)

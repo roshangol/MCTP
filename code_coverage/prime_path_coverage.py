@@ -162,7 +162,8 @@ def spliting_super(g, super_req, TP, first, last):
     TR = prime_path(g, first, last)
     edgg = list()
     edg = nx.edges(g)
-    ans = list()
+    ans_tp = list()
+    ans_tr = list()
     go_to_brute = list()
     for i in edg:
         edgg.append(list(i))
@@ -177,20 +178,23 @@ def spliting_super(g, super_req, TP, first, last):
             # print(p)
             a += 1
         end_res.append(p)
-    # for i in end_res:
-    #    print(i)
-
+    complete_tp_tr = path_request(end_res, TR)
+    # print(complete_tp_tr)
+    # print(end_res)
     for i in end_res:
         if i[0] == first and i[-1] == last:
-            ans.append(i)
+            ans_tp.append(i)
+            ans_tr.append(complete_tp_tr[str(i)])
         else:
             go_to_brute.append(i)
     # print(go_to_brute)
+
     ctp = brute_force(TP, go_to_brute, first, last)
     # print(ctp)
-    last_ans = minimize(ctp, TR)
-    result = last_ans + ans
-    return result
+    last_tp, last_tr = minimize(ctp, TR)
+    result_tp = last_tp + ans_tp
+    result_tr = last_tr + ans_tr
+    return result_tp, result_tr
 
 
 def brute_force(TP, TR, first, last):
@@ -213,7 +217,7 @@ def brute_force(TP, TR, first, last):
                     # print(new_path)
                 elif new_path[-1] != last and new_path[-1] in tp:
                     new_path = new_path[:] + tp[tp.index(new_path[-1])+1:]
-                    #print(new_path)
+                    # print(new_path)
         if new_path not in res:
             # print(new_path)
             res.append(new_path)
@@ -258,7 +262,8 @@ def intersection(lst1, lst2):
 
 
 def minimize(CTP, TR):
-    result = list()
+    result_tr = list()
+    result_tp = list()
     tp_tr = path_request(CTP, TR)
     for p1, r1 in tp_tr.copy().items():
         duplicate = []
@@ -275,38 +280,39 @@ def minimize(CTP, TR):
                 flag = False
         if flag is True and len(duplicate) == len(r1):
             del tp_tr[p1]
+
     for i in tp_tr.keys():
-        result.append(eval(i))
+        result_tp.append(eval(i))
 
-    new = list()
+    for j in tp_tr.values():
+        result_tr.append(j)
 
-    for i in tp_tr.values():
-        for j in i:
-            if j not in new:
-                new.append(j)
-    print(len(new))
+    # new = list()
+    # for i in tp_tr.values():
+    #    for j in i:
+    #        if j not in new:
+    #            new.append(j)
+    # print(len(new))
 
-    return result
+    return result_tp, result_tr
 
 
 def prime_path_coverage_superset(g, first, last):
 
-    TR = prime_path(g, first, last)
-    print(len(TR))
+    # TR = prime_path(g, first, last)
+    # print(len(TR))
     P = compute_P(g, first)
     TP = compute_TP(g, P, first, last)
     super_req = super_request(g, first, last)
-    end_res = spliting_super(g, super_req, TP, first, last)
-    for i in end_res:
-        print(i)
+    end_tp, end_tr = spliting_super(g, super_req, TP, first, last)
+    return end_tp, end_tr
 
 
 def prime_path_coverage_bruteforce(g, first, last):
     TR = prime_path(g, first, last)
-    print(len(TR))
+    # print(len(TR))
     P = compute_P(g, first)
     TP = compute_TP(g, P, first, last)
     ctp = brute_force(TP, TR, first, last)
-    end_res = minimize(ctp, TR)
-    for i in end_res:
-        print(i)
+    end_tp, end_tr = minimize(ctp, TR)
+    return end_tp, end_tr
