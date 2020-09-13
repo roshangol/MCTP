@@ -84,6 +84,18 @@ def findPrimePaths(graph):
     return last_prime
 
 
+def simple_path(g):
+    sims = []
+    for i in g.nodes():
+        sims.append(list(i))
+        for j in g.nodes():
+            sim = list(nx.all_simple_paths(g, i, j))
+            for k in sim:
+                if k not in sims and k != []:
+                    sims.append(k)
+    return sims
+
+
 def prime_paths(g, first, last):
     graph = read_graph(g, first, last)
     primes = findPrimePaths(graph)

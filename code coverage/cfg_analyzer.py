@@ -46,16 +46,8 @@ class cfg_coverage:
         return scyclomatic
 
     def simple_paths(self):
-        nodess = []
-        edges = {}
-        for node in self.graph_nodes():
-            nodess.append(str(node))
-        for edge in self.graph_nodes():
-            edges.update({str(edge): []})
-
-        for edge in self.graph_edge():
-            edges[str(edge[0])].append(str(edge[1]))
-        pf.simple_path(nodess, edges)
+        simples = pf.simple_path(self.graph)
+        return simples
 
     def prim_paths(self):
         primes = pf.prime_paths(self.graph, self.first, self.last)
@@ -66,3 +58,6 @@ class cfg_coverage:
 
     def prime_path_coverage_setcoverage(self):
         prime_path_coverage_superset(self.graph, self.first, self.last)
+
+    def draw_cfg(self):
+        pass

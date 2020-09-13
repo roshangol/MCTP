@@ -1,8 +1,7 @@
 import networkx as nx
 import math
-import path_finder as pf
 from collections import defaultdict
-
+import path_finder as pf
 
 
 def check(l1, l2):
