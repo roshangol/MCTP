@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-
+import path_finder as pf
 
 class cfg_coverage:
 
@@ -43,8 +43,13 @@ class cfg_coverage:
         scyclomatic = len(self.graph_edge()) - len(self.graph_nodes()) + 2
         return scyclomatic
 
-    def simple_path(self):
+    def simple_paths(self):
         pass
+
+    def prim_paths(self):
+        primes = pf.prime_paths(g, first, last)
+        return primes
+
 
     def prime_path_coverage_bruteforce(self):
         pass
