@@ -128,7 +128,7 @@ def super_request(g, first, last):
             div = cost / effectiveness
             cost_efftectivness[key] = div
         # print(cost_efftectivness)
-    # find gi with the minimum cost-effectiveness and extend the super-test requirement Π with g 
+    # find gi with the minimum cost-effectiveness and extend the super-test requirement Π with g
         min_list = list()
         minn = math.inf
         for num, i in enumerate(list(cost_efftectivness.values())):

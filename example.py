@@ -10,6 +10,7 @@ example1 = cfg_coverage('./example_dot/Digraph.gv', 1, 2)
 # print(len(example1.prime_path()))
 # print(example1.cyclomatic_complexity())
 # print(example1.edge_pair())
+example1.draw_cfg()
 
 """
 # choose one of two method for compute minimum number of path to cover the graph 
@@ -18,4 +19,3 @@ tp, tr = example1.prime_path_coverage_setcoverage()
 for i in range(len(tp)):
     print(tp[i], "-->", tr[i], "\n")
 """
-# example1.draw_cfg()
