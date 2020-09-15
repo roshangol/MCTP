@@ -5,6 +5,7 @@ from .path_finder import prime_paths
 
 
 def check(l1, l2):
+    # return True if list2 is sublist of list1 but order of l2 is same in l1.
     index_list = [i for i, v in enumerate(l1) if v == l2[0]]
     for ii in index_list:
         l1_slice = l1[ii:ii + len(l2)]
@@ -15,6 +16,7 @@ def check(l1, l2):
 
 
 def checkSubset(list1, list2):
+    # return True if list2 is sublist of list1.
     exist = True
     for i in list2:
         if i not in list1:
@@ -23,6 +25,7 @@ def checkSubset(list1, list2):
 
 
 def overlap(a, b):
+    # return continiusly overlap of two list
     flag = False
     for i in range(len(b), 0, -1):
         if a[-i:] == b[0:i]:
@@ -35,6 +38,7 @@ def overlap(a, b):
 
 
 def path_request(test_path, primes):
+    # map each test path with test requirement
     tr_tp = defaultdict(list)
     tp_tr = defaultdict(list)
     for i in test_path:
@@ -46,11 +50,13 @@ def path_request(test_path, primes):
 
 
 def prime_path(g, first, last):
+    # return prime path of graph
     primes = prime_paths(g, first, last)
     return primes
 
 
 def compute_P(g, first):
+    # first algorithm use BFS to create small set of path's
     P = list()
     ll = nx.bfs_tree(g, first)
     for i in nx.nodes(g):
@@ -97,6 +103,7 @@ def compute_TP(g, P, first, last):
 
 
 def super_request(g, first, last):
+    # use set coverage greedy algorithm to find minimum super test requirement list.
     tp_tr = defaultdict(list)
     super_req = list()
 
@@ -159,6 +166,7 @@ def super_request(g, first, last):
 
 
 def spliting_super(g, super_req, TP, first, last):
+    # cut the super requrement list to exe cution path's.
     TR = prime_path(g, first, last)
     edgg = list()
     edg = nx.edges(g)
@@ -198,6 +206,8 @@ def spliting_super(g, super_req, TP, first, last):
 
 
 def brute_force(TP, TR, first, last):
+    # you can find method definition and functionality in article.
+
     # each test requirement tri ∈ T R that is not covered by T P
     not_covered = list()
     res = list()
@@ -225,6 +235,7 @@ def brute_force(TP, TR, first, last):
 
 
 def minimizing(CTP, TR):
+    # delete redundant path
     tp_tr = path_request(CTP, TR)
     # print(tp_tr)
     new = list()
@@ -256,12 +267,8 @@ def minimizing(CTP, TR):
     return list(tp_tr.keys())
 
 
-def intersection(lst1, lst2):
-    # print(lst1, lst2)
-    return [item for item in lst1 if item in lst2]
-
-
 def minimize(CTP, TR):
+    # other algorithm for delete redundant path
     result_tr = list()
     result_tp = list()
     tp_tr = path_request(CTP, TR)
@@ -298,9 +305,7 @@ def minimize(CTP, TR):
 
 
 def prime_path_coverage_superset(g, first, last):
-
-    # TR = prime_path(g, first, last)
-    # print(len(TR))
+    # firs method for prime path coverage.
     P = compute_P(g, first)
     TP = compute_TP(g, P, first, last)
     super_req = super_request(g, first, last)
@@ -309,6 +314,8 @@ def prime_path_coverage_superset(g, first, last):
 
 
 def prime_path_coverage_bruteforce(g, first, last):
+    # second method for prime path coverage.
+
     TR = prime_path(g, first, last)
     # print(len(TR))
     P = compute_P(g, first)

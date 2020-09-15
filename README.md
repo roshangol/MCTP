@@ -54,5 +54,9 @@ Input of this class is dot file that show cfg, first and last node and output re
 
 Li, N., Li, F., & Offutt, J. (2012, April). Better algorithms to minimize the cost of test paths. In 2012 IEEE Fifth International Conference on Software Testing, Verification and Validation (pp. 280-289).
 
+## Contact
+if you have any question about code or find any problem with code please contact with [me](roshangolmohamadi@gmail.com) 
+
+
 ## License
 [MIT](https://gitlab.com/roshan_roshan/graph-coverage-tool/-/blob/master/LICENSE)

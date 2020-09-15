@@ -16,7 +16,6 @@ example1 = cfg_coverage('./example_dot/Digraph.gv', 1, 0)
 
 # choose one of two method for compute minimum number of path to cover the graph 
 # tp, tr = example1.prime_path_coverage_bruteforce()
-tp, tr = example1.prime_path_coverage_setcoverage()
-for i in range(len(tp)):
-    print(tp[i], "-->", tr[i], "\n")
-
+# tp, tr = example1.prime_path_coverage_setcoverage()
+# for i in range(len(tp)):
+#    print(tp[i], "-->", tr[i], "\n")
