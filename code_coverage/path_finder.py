@@ -2,6 +2,27 @@ import networkx as nx
 from collections import deque
 
 
+def change_str_list(lis):
+    return list(map(int, lis))
+
+
+def change_str_listoflist(lis):
+    end_res = list()
+    for i in lis:
+        end_res.append(list(map(int, list(i))))
+    return end_res
+
+
+def change_str_listoflistoflist(lis):
+    end_res = list()
+    for i in lis:
+        list1 = []
+        for j in i:
+            list1.append(list(map(int, list(j))))
+        end_res.append(list1)
+    return end_res
+
+
 def read_graph(g, firs, last):
     edges = {}
     nodes = list(nx.nodes(g))

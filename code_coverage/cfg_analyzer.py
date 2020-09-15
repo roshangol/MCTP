@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from .path_finder import simple_paths, prime_paths
+from .path_finder import simple_paths, prime_paths, change_str_list, change_str_listoflist, change_str_listoflistoflist
 from .prime_path_coverage import prime_path_coverage_bruteforce, prime_path_coverage_superset
 
 
@@ -14,11 +14,13 @@ class cfg_coverage:
 
     def graph_nodes(self):
         # This function return all nodes in your cfg
-        return list(self.graph.nodes())
+        res = change_str_list(list(self.graph.nodes()))
+        return res
 
     def graph_edge(self):
         # This function return all edges in your cfg
-        return list(self.graph.edges())
+        res = change_str_listoflist(list(self.graph.edges()))
+        return res
 
     def edge_pair(self):
         edges = list()
@@ -40,19 +42,25 @@ class cfg_coverage:
 
     def simple_path(self):
         simples = simple_paths(self.graph)
-        return simples
+        res = change_str_listoflist(simples)
+        return res
 
     def prime_path(self):
         primes = prime_paths(self.graph, self.first, self.last)
-        return primes
+        res = change_str_listoflist(primes)
+        return res
 
     def prime_path_coverage_bruteforce(self):
         tp, tr = prime_path_coverage_bruteforce(self.graph, self.first, self.last)
-        return tp, tr
+        res_tp = change_str_listoflist(tp)
+        res_tr = change_str_listoflistoflist(tr)
+        return res_tp, res_tr
 
     def prime_path_coverage_setcoverage(self):
         tp, tr = prime_path_coverage_superset(self.graph, self.first, self.last)
-        return tp, tr
+        res_tp = change_str_listoflist(tp)
+        res_tr = change_str_listoflistoflist(tr)
+        return res_tp, res_tr
 
     def draw_cfg(self):
         nx.draw(self.graph, with_labels=True)
