@@ -59,4 +59,4 @@ if you have any question about code or find any problem with code please contact
 
 
 ## License
-[MIT](https://gitlab.com/roshan_roshan/graph-coverage-tool/-/blob/master/LICENSE)
+[MIT](https://github.com/roshangol/MCTP/blob/main/LICENSE)
